@@ -1,0 +1,704 @@
+{
+	"info": {
+		"_postman_id": "7fb7a410-a386-4a1f-9afc-6f5dec0d6546",
+		"name": "Paylocity_Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "EmployeeFieldNames_Invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "12cdf850-526b-4163-a179-ed82f71cb470",
+						"exec": [
+							"pm.test('Invalid Field name',function()\r",
+							"{pm.response.to.have.status(400)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstNae\": \"Smith\",\r\n    \"lastNam\": \"Loaf\",\r\n    \"dependans\": 2\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
+					"protocol": "https",
+					"host": [
+						"wmxrwq14uc",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"api",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Token_Invalid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "12cdf850-526b-4163-a179-ed82f71cb470",
+						"exec": [
+							"pm.test('Invalid Token - status code 401',function()\r",
+							"{pm.response.to.have.status(401)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic abcdefghj",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
+					"protocol": "https",
+					"host": [
+						"wmxrwq14uc",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"api",
+						"employees"
+					]
+				},
+				"description": "Add Authorization Value = abcdefghj\nExpected: 401 - Unauthorized\n\nActual :500 Internal Server Error"
+			},
+			"response": []
+		},
+		{
+			"name": "Add_Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "12cdf850-526b-4163-a179-ed82f71cb470",
+						"exec": [
+							"pm.test('Status code 200',function ()\r",
+							"{pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Valid BenefitCost\",function (){\r",
+							"    var benefitData = pm.response.json();\r",
+							"    pm.expect(benefitData.benefitsCost).to.eql(76.92308);\r",
+							"    });\r",
+							"pm.test(\"Valid NeyPay\",function (){\r",
+							"var netData = pm.response.json();\r",
+							"pm.expect(netData.net).to.eql(1923.0769);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"get generated id\", function () {\r",
+							"    var jsonData_id = pm.response.json();\r",
+							"    pm.environment.set('id', jsonData_id.id);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Nathan\",\r\n    \"lastName\": \"Miller\",\r\n    \"dependants\": 2\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
+					"protocol": "https",
+					"host": [
+						"wmxrwq14uc",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"api",
+						"employees"
+					]
+				},
+				"description": "Add Authorization Value = abcdefghj\nExpected: 401 - Unauthorized\n\nActual :500 Internal Server Error"
+			},
+			"response": []
+		},
+		{
+			"name": "Add_Employee_spl_chars",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "12cdf850-526b-4163-a179-ed82f71cb470",
+						"exec": [
+							"pm.test('Status code 400',function ()\r",
+							"{pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"!@#$Matt#$$%^$\",\r\n    \"lastName\": \"!@#$$%Miller%^&%%^%789\",\r\n    \"dependants\": \"@#$%^^\"\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
+					"protocol": "https",
+					"host": [
+						"wmxrwq14uc",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"api",
+						"employees"
+					]
+				},
+				"description": "Add Authorization Value = abcdefghj\nExpected: 401 - Unauthorized\n\nActual :500 Internal Server Error"
+			},
+			"response": []
+		},
+		{
+			"name": "Update_Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "12cdf850-526b-4163-a179-ed82f71cb470",
+						"exec": [
+							"pm.test(\"Status code 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Valid firstName\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.firstName).to.eql('Daisy');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Daisy\",\r\n    \"lastName\": \"Miller\",\r\n    \"dependants\": 2,\r\n    \"id\" : \"{{id}}\"\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
+					"protocol": "https",
+					"host": [
+						"wmxrwq14uc",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"api",
+						"employees"
+					]
+				},
+				"description": "Add Authorization Value = abcdefghj\nExpected: 401 - Unauthorized\n\nActual :500 Internal Server Error"
+			},
+			"response": []
+		},
+		{
+			"name": "Update_Employee_invalid_token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "12cdf850-526b-4163-a179-ed82f71cb470",
+						"exec": [
+							"pm.test(\"Status code 401\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic adfdfasfd12345",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Daisy\",\r\n    \"lastName\": \"Miller\",\r\n    \"dependants\": 2,\r\n    \"id\" : \"{{id}}\"\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
+					"protocol": "https",
+					"host": [
+						"wmxrwq14uc",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"api",
+						"employees"
+					]
+				},
+				"description": "Add Authorization Value = abcdefghj\nExpected: 401 - Unauthorized\n\nActual :500 Internal Server Error"
+			},
+			"response": []
+		},
+		{
+			"name": "Update_Employee_Invalid_id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "12cdf850-526b-4163-a179-ed82f71cb470",
+						"exec": [
+							"pm.test(\"Status code 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Daisy\",\r\n    \"lastName\": \"Miller\",\r\n    \"dependants\": 2,\r\n    \"id\" : \"12345adbfg\"\r\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
+					"protocol": "https",
+					"host": [
+						"wmxrwq14uc",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"api",
+						"employees"
+					]
+				},
+				"description": "Add Authorization Value = abcdefghj\nExpected: 401 - Unauthorized\n\nActual :500 Internal Server Error"
+			},
+			"response": []
+		},
+		{
+			"name": "Get_EmployeeList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "12cdf850-526b-4163-a179-ed82f71cb470",
+						"exec": [
+							"pm.test(\"Status code 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get Employee List\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"     pm.expect(jsonData[0].firstName).to.eql('Daisy');\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "TestUser48",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "(vXGs0Z=r89(",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
+					"protocol": "https",
+					"host": [
+						"wmxrwq14uc",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"api",
+						"employees"
+					]
+				},
+				"description": "Add Authorization Value = abcdefghj\nExpected: 401 - Unauthorized\n\nActual :500 Internal Server Error"
+			},
+			"response": []
+		},
+		{
+			"name": "Get_EmployeeList_invalid_auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "12cdf850-526b-4163-a179-ed82f71cb470",
+						"exec": [
+							"pm.test(\"Status code 401\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "(",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "TestUser48",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
+					"protocol": "https",
+					"host": [
+						"wmxrwq14uc",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"api",
+						"employees"
+					]
+				},
+				"description": "Add Authorization Value = abcdefghj\nExpected: 401 - Unauthorized\n\nActual :500 Internal Server Error"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete_Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "12cdf850-526b-4163-a179-ed82f71cb470",
+						"exec": [
+							"pm.test(\"Status code 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees/{{id}}",
+					"protocol": "https",
+					"host": [
+						"wmxrwq14uc",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"api",
+						"employees",
+						"{{id}}"
+					]
+				},
+				"description": "Add Authorization Value = abcdefghj\nExpected: 401 - Unauthorized\n\nActual :500 Internal Server Error"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete_Employee_invalid_id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "12cdf850-526b-4163-a179-ed82f71cb470",
+						"exec": [
+							"pm.test(\"Status code 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees/abcd12345",
+					"protocol": "https",
+					"host": [
+						"wmxrwq14uc",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"api",
+						"employees",
+						"abcd12345"
+					]
+				},
+				"description": "Add Authorization Value = abcdefghj\nExpected: 401 - Unauthorized\n\nActual :500 Internal Server Error"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ce2d83ca-5e17-440b-b7a2-32eca9302106",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "02737a84-3cd4-47c5-b39e-e3d99639236a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "49355a35-86cb-4e59-a77a-c4c0ec7deb4a",
+			"key": "token",
+			"value": "VGVzdFVzZXI0ODoodlhHczBaPXI4OSg=",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
